@@ -26,6 +26,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Start to test and build the artifact
+        
+      # Run SonarCloud scan
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       # Runs a set of commands using the runners shell
       - name: Run test and build
@@ -61,3 +68,5 @@ jobs:
           context: .
           push: true
           tags: supraano/app:${{ steps.vars.outputs.sha_short }}
+          
+
